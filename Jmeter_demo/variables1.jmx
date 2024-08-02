@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">admin</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler ctx keyword" enabled="false">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">//ctx-context
+
+
+
+log.info (&quot;Engine present in the system is &quot;+ ctx.getEngine())
+
+log.info (&quot;thread number present is ******** &quot;+ ctx.getThreadNum());
+
+log.info (&quot;Username present in the thread is******** &quot;+ctx.getVariables().get(&apos;username&apos;));
+
+log.info(&quot;latest version of jmeter is *********** &quot;+ctx.getProperties().getProperty(&apos;jmeter.version&apos;));
+
+log.info(&quot;Thread present in the system is ********* &quot;+ctx.getThread());</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler vars keyword" enabled="false">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">//vars -variables help to interact with variables &amp; update variables value
+
+log.info(&quot;the value of username is*******&quot;+vars.get(&apos;username&apos;))
+
+vars.put(&apos;username&apos;,&apos;myUserName&apos;)
+
+log.info(&quot;the value of updated username is*******&quot;+ vars.get(&apos;username&apos;))
+
+vars.remove(&apos;username&apos;)
+
+log.info(&quot;the value of updated username is*******&quot;+ vars.get(&apos;username&apos;))
+
+String PersonName=&quot;Freaklin&quot;
+vars.putObject(&quot;PersonName&quot;,PersonName)
+log.info(&quot;the object name is************&quot;+vars.getObject(&apos;PersonName&apos;))
+
+String PersonAge=&quot;40&quot;
+vars.putObject(&apos;PersonAge&apos;,PersonAge)
+log.info(&quot;The person&apos;s age is *************&quot;+vars.getObject(&apos;PersonAge&apos;))
+
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler props keyword" enabled="false">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">//props -properties
+
+
+
+
+
+
+log.info(&quot;Time stamp is************** &quot;+vars.get(&apos;time1&apos;));
+  
+log.info(&quot;Time stamp is************** &quot; +props.get(&apos;START.MS&apos;))
+
+log.info(&quot;Date is ********** &quot; +props.get(&apos;START.YMD&apos;))
+
+log.info(&quot;The remote hosts is ************ &quot;+props.get(&apos;remote_hosts&apos;))
+
+log.info(&quot;Operating system is *************&quot;+ System.getProperty(&apos;os.name&apos;))</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">petstore.octoperf.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor &quot;sampler&quot;" enabled="true">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">// sampler
+
+log.info(&quot;domain details is **************** &quot;+sampler.getDomain());
+
+log.info(&quot;Port number in the system is ***************** &quot;+sampler.getPort());
+
+log.info(sampler.getProtocol());
+
+//set domain details
+sampler.setDomain(&apos;bing.com&apos;);
+sampler.setPort(443);
+sampler.setProtocol(&apos;https&apos;);
+
+//get sampler details
+
+log.info(&quot;domain details is **************** &quot;+sampler.getDomain());
+
+log.info(&quot;Port number in the system is ***************** &quot;+sampler.getPort());
+
+log.info(sampler.getProtocol());
+
+</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">sampler.setDomain(&apos;bing.com&apos;)
+sampler.setPort(443)
+sampler.setProtocol(&apos;https&apos;)</stringProp>
+            </JSR223PreProcessor>
+            <hashTree/>
+          </hashTree>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor &quot;Prev&quot;" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">
+//prev-previous
+
+var sL=prev.getSampleLabel()
+log.info(&quot;sample label is *************** &quot;+sL);
+
+var sD=prev.getSamplerData()
+log.info(&quot;sampler Data is *************** &quot;+sD);
+
+var GT=prev.getStartTime()
+log.info(&quot;start time is *************** &quot;+GT);
+
+var RC=prev.getResponseCode()
+log.info(&quot;Response code is ************ &quot;+ RC);
+
+var RM=prev.getResponseMessage()
+log.info(&quot;Response message is *************** &quot;+RM);
+
+var GU=prev.getUrl()
+log.info(&quot;Getting Url is *************** &quot;+GU);
+
+var SOF=prev.isSuccessful()
+log.info(&quot;Result is *************** &quot;+SOF);
+
+var SC=prev.getSampleCount()
+log.info(&quot;sample count is *************** &quot;+SC);
+
+prev.getLatency()
+prev.getTime()</stringProp>
+            <stringProp name="scriptLanguage">javascript</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <sentBytes>true</sentBytes>
+                <url>true</url>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+                <connectTime>true</connectTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
